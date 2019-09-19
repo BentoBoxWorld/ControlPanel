@@ -13,3 +13,7 @@ controlpanel:
       import:
         parameters: "[overwrite]"
         description: ielādē vadības paneļus no controlPanels.yml
+      help:
+        description: parāda administratora palīdzības komandas
+    help:
+      description: atver vadības paneli
