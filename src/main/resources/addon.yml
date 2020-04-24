@@ -17,7 +17,7 @@ authors:
   - BONNe
 
 # Soft dependencies of current addon.
-softdepend: AcidIsland, BSkyBlock, CaveBlock, SkyGrid
+softdepend: AcidIsland, BSkyBlock, CaveBlock, SkyGrid, AOneBlock
 
 # List of addon permissions
 permissions:
@@ -70,5 +70,18 @@ permissions:
     description: Allows importing control panels from file
     default: op
   skygrid.controlpanel.panel.default:
+    description: Allows access to default control panel layout
+    default: true
+
+  aoneblock.controlpanel:
+    description: Allows access to control panel command
+    default: true
+  aoneblock.controlpanel.admin:
+    description: Allows access to control panel admin command
+    default: op
+  aoneblock.controlpanel.admin.import:
+    description: Allows importing control panels from file
+    default: op
+  aoneblock.controlpanel.panel.default:
     description: Allows access to default control panel layout
     default: true
