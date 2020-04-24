@@ -237,6 +237,7 @@ public class ControlPanelObject implements DataObject
 		 *
 		 * @return the description (type String) of this object.
 		 */
+		@Deprecated
 		public String getDescription()
 		{
 			return description;
@@ -248,6 +249,7 @@ public class ControlPanelObject implements DataObject
 		 * @param description new value for this object.
 		 *
 		 */
+		@Deprecated
 		public void setDescription(String description)
 		{
 			this.description = description;
@@ -276,6 +278,47 @@ public class ControlPanelObject implements DataObject
 		}
 
 
+		/**
+		 * Method ControlPanelButton#getName returns the name of this object.
+		 *
+		 * @return the name (type String) of this object.
+		 */
+		public String getName()
+		{
+			return name;
+		}
+
+
+		/**
+		 * Method ControlPanelButton#setName sets new value for the name of this object.
+		 * @param name new value for this object.
+		 */
+		public void setName(String name)
+		{
+			this.name = name;
+		}
+
+		/**
+		 * Method ControlPanelButton#getDescriptionLines returns the descriptionLines of this object.
+		 *
+		 * @return the descriptionLines (type List<String></String>) of this object.
+		 */
+		public List<String> getDescriptionLines()
+		{
+			return descriptionLines;
+		}
+
+
+		/**
+		 * Method ControlPanelButton#setDescriptionLines sets new value for the descriptionLines of this object.
+		 * @param descriptionLines new value for this object.
+		 */
+		public void setDescriptionLines(List<String> descriptionLines)
+		{
+			this.descriptionLines = descriptionLines;
+		}
+
+
 		// ---------------------------------------------------------------------
 		// Section: Variables
 		// ---------------------------------------------------------------------
@@ -297,13 +340,26 @@ public class ControlPanelObject implements DataObject
 		 * Description for the button
 		 */
 		@Expose
+		@Deprecated
 		private String description;
+
+		/**
+		 * Description lines for the button
+		 */
+		@Expose
+		private List<String> descriptionLines;
 
 		/**
 		 * Command that will run on the click.
 		 */
 		@Expose
 		private String command;
+
+		/**
+		 * Name of the Button.
+		 */
+		@Expose
+		private String name;
 	}
 
 

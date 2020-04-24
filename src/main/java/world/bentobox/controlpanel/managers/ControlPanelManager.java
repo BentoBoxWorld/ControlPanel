@@ -25,6 +25,7 @@ import world.bentobox.bentobox.database.Database;
 import world.bentobox.controlpanel.ControlPanelAddon;
 import world.bentobox.controlpanel.database.objects.ControlPanelObject;
 import world.bentobox.controlpanel.database.objects.ControlPanelObject.ControlPanelButton;
+import world.bentobox.controlpanel.panels.GuiUtils;
 import world.bentobox.controlpanel.utils.Constants;
 import world.bentobox.controlpanel.utils.Utils;
 
@@ -47,11 +48,11 @@ public class ControlPanelManager
 	{
 		this.addon = addon;
 
-		this.controlFile = new File(this.addon.getDataFolder(), "controlPanels.yml");
+		this.controlFile = new File(this.addon.getDataFolder(), "controlPanelTemplate.yml");
 
 		if (!this.controlFile.exists())
 		{
-			this.addon.saveResource("controlPanels.yml", false);
+			this.addon.saveResource("controlPanelTemplate.yml", false);
 		}
 
 		this.controlPanelCache = new HashMap<>();
@@ -85,6 +86,23 @@ public class ControlPanelManager
 	 */
 	private void load(ControlPanelObject controlPanelObject)
 	{
+		// Migrate older data
+		controlPanelObject.getPanelButtons().forEach(button -> {
+			if (button.getName() == null)
+			{
+				button.setName(button.getCommand());
+			}
+
+			if (button.getDescriptionLines() == null &&
+				button.getDescription() != null &&
+				!button.getDescription().isEmpty())
+			{
+				button.setDescriptionLines(new ArrayList<>());
+				button.getDescriptionLines().addAll(GuiUtils.stringSplit(button.getDescription(), 999, false));
+				button.setDescription(null);
+			}
+		});
+
 		// Add object into cache
 		this.controlPanelCache.put(controlPanelObject.getUniqueId(), controlPanelObject);
 	}
@@ -222,7 +240,12 @@ public class ControlPanelManager
 							if (buttonSection != null)
 							{
 								button.setCommand(buttonSection.getString("command", "[user_command]"));
-								button.setDescription(buttonSection.getString("description", "").replace("[gamemode]", gameMode.toLowerCase()));
+
+								// Create empty list
+								button.setDescriptionLines(new ArrayList<>());
+								buttonSection.getStringList("description").forEach(line ->
+									button.getDescriptionLines().add(line.replace("[gamemode]", gameMode.toLowerCase())));
+
 								button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
 
 								buttonList.add(button);
