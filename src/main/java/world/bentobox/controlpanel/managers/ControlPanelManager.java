@@ -239,6 +239,7 @@ public class ControlPanelManager
 
 							if (buttonSection != null)
 							{
+								button.setName(buttonSection.getString("name"));
 								button.setCommand(buttonSection.getString("command", "[user_command]"));
 
 								// Create empty list
