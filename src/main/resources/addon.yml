@@ -11,6 +11,8 @@ repository: 'BentoBoxWorld/ControlPanel'
 # Icon of addon that will be displayed in Addon Manager.
 # Must use Material.values() with uppercase.
 icon: 'COMMAND_BLOCK'
+# Minimum BentoBox API version
+api-version: 1.14
 
 # List of addon authors.
 authors:
@@ -21,67 +23,15 @@ softdepend: AcidIsland, BSkyBlock, CaveBlock, SkyGrid, AOneBlock
 
 # List of addon permissions
 permissions:
-  acidisland.controlpanel:
+  '[gamemode].controlpanel':
     description: Allows access to control panel command
     default: true
-  acidisland.controlpanel.admin:
+  '[gamemode].controlpanel.admin':
     description: Allows access to control panel admin command
     default: op
-  acidisland.controlpanel.admin.import:
+  '[gamemode].controlpanel.admin.import':
     description: Allows importing control panels from file
     default: op
-  acidisland.controlpanel.panel.default:
-    description: Allows access to default control panel layout
-    default: true
-
-  bskyblock.controlpanel:
-    description: Allows access to control panel command
-    default: true
-  bskyblock.controlpanel.admin:
-    description: Allows access to control panel admin command
-    default: op
-  bskyblock.controlpanel.admin.import:
-    description: Allows importing control panels from file
-    default: op
-  bskyblock.controlpanel.panel.default:
-    description: Allows access to default control panel layout
-    default: true
-
-  caveblock.controlpanel:
-    description: Allows access to control panel command
-    default: true
-  caveblock.controlpanel.admin:
-    description: Allows access to control panel admin command
-    default: op
-  caveblock.controlpanel.admin.import:
-    description: Allows importing control panels from file
-    default: op
-  caveblock.controlpanel.panel.default:
-    description: Allows access to default control panel layout
-    default: true
-
-  skygrid.controlpanel:
-    description: Allows access to control panel command
-    default: true
-  skygrid.controlpanel.admin:
-    description: Allows access to control panel admin command
-    default: op
-  skygrid.controlpanel.admin.import:
-    description: Allows importing control panels from file
-    default: op
-  skygrid.controlpanel.panel.default:
-    description: Allows access to default control panel layout
-    default: true
-
-  aoneblock.controlpanel:
-    description: Allows access to control panel command
-    default: true
-  aoneblock.controlpanel.admin:
-    description: Allows access to control panel admin command
-    default: op
-  aoneblock.controlpanel.admin.import:
-    description: Allows importing control panels from file
-    default: op
-  aoneblock.controlpanel.panel.default:
+  '[gamemode].controlpanel.panel.default':
     description: Allows access to default control panel layout
     default: true
