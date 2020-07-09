@@ -45,7 +45,7 @@ panel-list:
         material: ACACIA_STAIRS
         description:
           - 'Island level'
-          - 'Level: %Level_[gamemode]-island-level%'
+          - 'Level: %Level_[gamemode]_island_level%'
         command: '[label] level'
       10:
         name: 'Show top 10'
