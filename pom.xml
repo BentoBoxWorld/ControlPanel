@@ -60,7 +60,7 @@
         <spigot.version>1.15.2-R0.1-SNAPSHOT</spigot.version>
 
         <!-- BentoBox API version -->
-        <bentobox.version>1.14.0-SNAPSHOT</bentobox.version>
+        <bentobox.version>1.14.0</bentobox.version>
 
         <!-- Revision variable removes warning about dynamic version -->
         <revision>${build.version}-SNAPSHOT</revision>
