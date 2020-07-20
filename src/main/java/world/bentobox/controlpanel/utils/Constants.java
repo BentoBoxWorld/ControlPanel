@@ -48,4 +48,24 @@ public class Constants
 	 * Reference string to types in translations.
 	 */
 	public static final String TYPES = "controlpanel.types.";
+
+	/**
+	 * Stores string that references to GameMode variable in translations.
+	 */
+	public static final String VARIABLE_GAMEMODE = "[gamemode]";
+
+	/**
+	 * Stores string that references to admin command variable in translations.
+	 */
+	public static final String VARIABLE_ADMIN = "[admin]";
+
+	/**
+	 * Stores string that references to file name variable in translations.
+	 */
+	public static final String VARIABLE_FILENAME = "[file]";
+
+	/**
+	 * Stores string that references to message variable in translations.
+	 */
+	public static final String VARIABLE_MESSAGE = "[message]";
 }
