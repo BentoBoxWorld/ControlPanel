@@ -29,9 +29,6 @@ permissions:
   '[gamemode].controlpanel.admin':
     description: Allows access to control panel admin command
     default: op
-  '[gamemode].controlpanel.admin.import':
-    description: Allows importing control panels from file
-    default: op
   '[gamemode].controlpanel.panel.default':
     description: Allows access to default control panel layout
     default: true
