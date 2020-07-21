@@ -267,7 +267,7 @@ public class ControlPanelManager
             fileName = fileName + ".yml";
         }
 
-        File controlFile = new File(fileName);
+        File controlFile = new File(this.addon.getDataFolder(), fileName);
 
         if (!controlFile.exists())
         {
