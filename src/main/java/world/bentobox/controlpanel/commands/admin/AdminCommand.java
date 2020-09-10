@@ -138,7 +138,12 @@ public class AdminCommand extends CompositeCommand
 					user.getTranslation(Constants.COMMANDS + "admin.import.confirmation",
 						Constants.VARIABLE_GAMEMODE, Utils.getGameMode(this.getWorld()),
 						Constants.VARIABLE_FILENAME, fileName),
-					() -> manager.importControlPanels(user, this.getWorld(), fileName));
+					() -> {
+						// Clear database / cache
+						manager.wipeData(this.getWorld(), user);
+						// Import panels
+						manager.importControlPanels(user, this.getWorld(), fileName);
+					});
 			}
 			else
 			{
