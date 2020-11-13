@@ -365,8 +365,30 @@ public class ControlPanelManager
 
                                 // Create empty list
                                 button.setDescriptionLines(new ArrayList<>());
-                                buttonSection.getStringList("description").forEach(line ->
-                                    button.getDescriptionLines().add(line.replace("[gamemode]", gameMode.toLowerCase())));
+
+                                if (buttonSection.isList("description"))
+                                {
+                                    // Read description by each line
+                                    buttonSection.getStringList("description").forEach(line ->
+                                        button.getDescriptionLines().add(
+                                            line.replace("[gamemode]", gameMode.toLowerCase())));
+                                }
+                                else if (buttonSection.isString("description"))
+                                {
+                                    // Check if description is not defined as simple string
+                                    String input = buttonSection.getString("description", "");
+
+                                    if (input != null && !input.isEmpty())
+                                    {
+                                        button.getDescriptionLines().add(
+                                            input.replace("[gamemode]", gameMode.toLowerCase()));
+                                    }
+                                }
+                                else
+                                {
+                                    this.addon.logWarning("Description for button " +
+                                        + button.getSlot() + " could not be read.");
+                                }
 
                                 button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
 
