@@ -1,10 +1,9 @@
----
 controlpanel:
   messages:
     import-count: " [number] panneaux de commande importés."
   errors:
-    no-load: "&4Impossible de charger le fichier controlPanels.yml: [message]"
-    no-file: "&4Fichier controlPanels.yml manquant"
+    no-load: "&4Impossible de charger le fichier [file]: [message]"
+    no-file: "&4Fichier [file] manquant"
     no-valid-panels: "&4Impossible de trouver un panneau de configuration valide.\n"
     no-valid-panels-op: "&4Impossible de trouver un panneau de configuration valide.
       Vous devriez essayer de l'importer en utilisant /[admin] cp import"
@@ -16,7 +15,7 @@ controlpanel:
         parameters: "[overwrite]"
         description: |2-
 
-          importe les panneaux de contrôle de controlPanels.yml
+          importe les panneaux de contrôle de [file]
     help:
       description: |2-
 

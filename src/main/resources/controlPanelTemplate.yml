@@ -21,42 +21,63 @@ panel-list:
     permission: 'default'
     buttons:
       0:
+        name: 'Island'
         material: GRASS
-        description: 'Go to your island'
+        description:
+          - '&1Go to &5 your island'
         command: '[label] go'
       8:
+        name: 'Settings'
         material: LAVA_BUCKET
-        description: 'Open your island settings'
+        description:
+          - 'Open your island settings'
         command: '[label] settings'
       3:
+        name: 'Team'
         material: SKULL_ITEM
-        description: 'List team members'
+        description:
+          - 'List team members'
         command: '[label] team'
       1:
+        name: 'Set Home'
         material: WHITE_BED
-        description: 'Set your home here'
+        description:
+          - 'Set your home here'
         command: '[label] sethome'
       9:
+        name: 'Calculate Level'
         material: ACACIA_STAIRS
-        description: 'Island level |Level: %Level_[gamemode]-island-level%'
+        description:
+          - 'Island level'
+          - 'Level: %Level_[gamemode]_island_level%'
         command: '[label] level'
       10:
+        name: 'Show top 10'
         material: BOOK
-        description: 'List the Top 10 islands'
+        description:
+          - 'List the Top 10 islands'
         command: '[label] top'
       12:
+        name: 'Show warps'
         material: OAK_SIGN
-        description: 'List warps available'
+        description:
+          - 'List warps available'
         command: '[label] warps'
       5:
+        name: 'Spawn'
         material: BEDROCK
-        description: 'Go to world spawn'
+        description:
+          - 'Go to world spawn'
         command: '[label] spawn'
       14:
+        name: 'Biomes'
         material: OAK_SAPLING
-        description: 'Biomes'
+        description:
+          - 'Biomes'
         command: '[label] biomes'
       15:
+        name: 'Challenges'
         material: ENCHANTING_TABLE
-        description: 'Challenges'
+        description:
+          - 'Challenges'
         command: '[label] challenges'

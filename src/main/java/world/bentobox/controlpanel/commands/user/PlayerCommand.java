@@ -63,14 +63,16 @@ public class PlayerCommand extends CompositeCommand
 	@Override
 	public boolean canExecute(User user, String label, List<String> args)
 	{
-		this.panelObject = ((ControlPanelAddon) this.getAddon()).
-			getAddonManager().getUserControlPanel(user, this.getWorld(), this.getPermissionPrefix());
+		this.panelObject = this.<ControlPanelAddon>getAddon().getAddonManager().
+			getUserControlPanel(user, this.getWorld(), this.getPermissionPrefix());
 
 		if (this.panelObject == null)
 		{
 			if (user.isOp())
 			{
-				user.sendMessage(Constants.ERRORS + "no-valid-panels-op");
+				user.sendMessage(Constants.ERRORS + "no-valid-panels-op",
+					Constants.VARIABLE_ADMIN,
+					this.getTopLabel());
 			}
 			else
 			{
@@ -99,7 +101,7 @@ public class PlayerCommand extends CompositeCommand
 	public boolean execute(User user, String label, List<String> args)
 	{
 		// Execute panel
-		ControlPanelGenerator.open((ControlPanelAddon) this.getAddon(),
+		ControlPanelGenerator.open(this.getAddon(),
 			user,
 			this.panelObject,
 			this.getTopLabel());

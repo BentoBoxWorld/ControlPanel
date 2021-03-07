@@ -124,14 +124,20 @@ public class GuiUtils
 	 * Simple splitter
 	 *
 	 * @param string - string to be split
-	 * @param warpLength - whn warp should be affected.
+	 * @param warpLength - when warp should be affected.
+	 * @param colour - boolean that indicate if colour should be translated.
 	 * @return list of split strings
 	 */
-	public static List<String> stringSplit(String string, int warpLength)
+	public static List<String> stringSplit(String string, int warpLength, boolean colour)
 	{
 		// Remove all ending lines from string.
 		string = string.replaceAll("([\\r\\n])", "\\|");
-		string = ChatColor.translateAlternateColorCodes('&', string);
+
+		if (colour)
+		{
+			string = ChatColor.translateAlternateColorCodes('&', string);
+		}
+
 		// Check length of lines
 		List<String> result = new ArrayList<>();
 
@@ -141,7 +147,7 @@ public class GuiUtils
 
 		// Fix colors, as splitting my lost that information.
 
-		for (int i = 0, resultSize = result.size(); i < resultSize; i++)
+		for (int i = 0, resultSize = result.size(); colour && i < resultSize; i++)
 		{
 			if (i > 0)
 			{
@@ -155,9 +161,22 @@ public class GuiUtils
 
 
 	/**
+	 * Simple splitter
+	 *
+	 * @param string - string to be split
+	 * @param warpLength - when warp should be affected.
+	 * @return list of split strings
+	 */
+	public static List<String> stringSplit(String string, int warpLength)
+	{
+		return GuiUtils.stringSplit(string, warpLength, true);
+	}
+
+
+	/**
 	 * Simple splitter for all strings in list.
 	 * @param stringList - list of string to be split
-	 * @param warpLength - whn warp should be affected.
+	 * @param warpLength - when warp should be affected.
 	 * @return list of split strings
 	 */
 	public static List<String> stringSplit(List<String> stringList, int warpLength)

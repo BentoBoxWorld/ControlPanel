@@ -103,6 +103,12 @@ public class ControlPanelAddon extends Addon
 
 				gameModeAddon.getAdminCommand().ifPresent(
 					adminCommand -> new AdminCommand(this, adminCommand));
+
+				// Load default template if there are no existing control panels
+				if (!this.manager.hasAnyControlPanel(gameModeAddon))
+				{
+					this.manager.importControlPanels(null, gameModeAddon);
+				}
 			}
 		});
 	}

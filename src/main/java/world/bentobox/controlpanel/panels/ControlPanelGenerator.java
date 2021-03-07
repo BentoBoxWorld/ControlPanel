@@ -8,7 +8,9 @@ package world.bentobox.controlpanel.panels;
 
 
 import org.bukkit.Material;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import world.bentobox.bentobox.api.panels.PanelItem;
 import world.bentobox.bentobox.api.panels.builders.PanelBuilder;
@@ -94,25 +96,38 @@ public class ControlPanelGenerator
 	 */
 	private PanelItem generateButton(ControlPanelButton button)
 	{
-		final boolean runAsServer = button.getCommand().startsWith("[server]");
-		final String parsedCommand = button.getCommand().
-			replace("[label]", this.topLabel).
-			replace("[server]", "").
-			replace("[player]", this.user.getName()).
-			trim();
+		// Populate description with placeholder values.
+		// Ensure that all colors are translated.
+		List<String> description = new ArrayList<>();
+		button.getDescriptionLines().forEach(line ->
+			description.addAll(
+				GuiUtils.stringSplit(
+					this.addon.getPlugin().getPlaceholdersManager().replacePlaceholders(this.user.getPlayer(), line),
+					999)));
 
-		String description = this.addon.getPlugin().getPlaceholdersManager().
-			replacePlaceholders(this.user.getPlayer(), button.getDescription());
+		// This is necessary as it was old functionality.
+		String buttonName =
+			this.addon.getPlugin().getPlaceholdersManager().replacePlaceholders(
+				this.user.getPlayer(), button.getName()).
+				replace("[label]", this.topLabel).
+				replace("[server]", "").
+				replace("[player]", user.getName()).
+				trim();
 
 		return new PanelItemBuilder().
-			name(parsedCommand.isEmpty() ? " " : "/" + parsedCommand).
+			name(buttonName).
 			icon(button.getMaterial() == null ? Material.PAPER : button.getMaterial()).
-			description(GuiUtils.stringSplit(description, 999)).
+			description(description).
 			clickHandler((panel, user, clickType, slot) -> {
+				final String parsedCommand = button.getCommand().
+					replace("[label]", this.topLabel).
+					replace("[server]", "").
+					replace("[player]", user.getName()).
+					trim();
 
 				if (!parsedCommand.isEmpty())
 				{
-					if (runAsServer)
+					if (button.getCommand().startsWith("[server]"))
 					{
 						if (!this.addon.getServer().dispatchCommand(
 							this.addon.getServer().getConsoleSender(),
