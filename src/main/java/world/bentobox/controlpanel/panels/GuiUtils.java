@@ -1,14 +1,15 @@
 package world.bentobox.controlpanel.panels;
 
 
-import org.apache.commons.lang.WordUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import world.bentobox.bentobox.api.panels.PanelItem;
 import world.bentobox.bentobox.api.panels.builders.PanelBuilder;
@@ -142,7 +143,7 @@ public class GuiUtils
 		List<String> result = new ArrayList<>();
 
 		Arrays.stream(string.split("\\|")).
-			map(line -> Arrays.asList(WordUtils.wrap(line, warpLength).split(System.getProperty("line.separator")))).
+                map(line -> Arrays.asList(wrap(line, warpLength).split(System.getProperty("line.separator")))).
 			forEach(result::addAll);
 
 		// Fix colors, as splitting my lost that information.
@@ -158,6 +159,31 @@ public class GuiUtils
 
 		return result;
 	}
+
+    static String wrap(String text, int maxWidth) {
+        BreakIterator boundary = BreakIterator.getLineInstance();
+        boundary.setText(text);
+
+        StringBuilder wrappedText = new StringBuilder();
+        int start = boundary.first();
+        int end = boundary.next();
+        int lineLength = 0;
+
+        while (end != BreakIterator.DONE) {
+            String word = text.substring(start, end);
+            lineLength += word.length();
+
+            if (lineLength >= maxWidth) {
+                wrappedText.append("\n");
+                lineLength = word.length();
+            }
+            wrappedText.append(word);
+            start = end;
+            end = boundary.next();
+        }
+
+        return wrappedText.toString();
+    }
 
 
 	/**
