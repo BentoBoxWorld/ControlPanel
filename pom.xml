@@ -40,13 +40,9 @@
         addon -->
     <!-- Can be removed -->
     <distributionManagement>
-        <snapshotRepository>
-            <id>codemc-snapshots</id>
-            <url>https://repo.codemc.org/repository/maven-snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>codemc-releases</id>
-            <url>https://repo.codemc.org/repository/maven-releases</url>
+            <id>bentoboxworld</id>
+            <url>https://repo.codemc.org/repository/bentoboxworld/</url>
         </repository>
     </distributionManagement>
 
@@ -59,15 +55,15 @@
         <java.version>17</java.version>
 
         <!-- SPIGOT API version -->
-        <spigot.version>1.20.4-R0.1-SNAPSHOT</spigot.version>
+        <spigot.version>1.21.3-R0.1-SNAPSHOT</spigot.version>
 
         <!-- BentoBox API version -->
-        <bentobox.version>2.0.0-SNAPSHOT</bentobox.version>
+        <bentobox.version>2.7.1-SNAPSHOT</bentobox.version>
 
         <!-- Revision variable removes warning about dynamic version -->
         <revision>${build.version}-SNAPSHOT</revision>
         <!-- This allows to change between versions and snapshots. -->
-        <build.version>1.13.1</build.version>
+        <build.version>1.14.0</build.version>
         <build.number>-LOCAL</build.number>
         <!-- Sonar Cloud -->
         <sonar.projectKey>BentoBoxWorld_ControlPanel</sonar.projectKey>
@@ -115,6 +111,10 @@
         <repository>
             <id>spigotmc-public</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>bentoboxworld</id>
+            <url>https://repo.codemc.org/repository/bentoboxworld/</url>
         </repository>
         <repository>
             <id>codemc-repo</id>
