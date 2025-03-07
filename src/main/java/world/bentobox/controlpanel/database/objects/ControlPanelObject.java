@@ -10,6 +10,7 @@ package world.bentobox.controlpanel.database.objects;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import com.google.gson.annotations.Expose;
 
@@ -236,6 +237,28 @@ public class ControlPanelObject implements DataObject
 
 
         /**
+         * Gets icon.
+         *
+         * @return the icon
+         */
+        public ItemStack getIcon()
+        {
+            return icon;
+        }
+
+
+        /**
+         * Sets icon.
+         *
+         * @param icon the icon
+         */
+        public void setIcon(ItemStack icon)
+        {
+            this.icon = icon;
+        }
+
+
+        /**
          * Method ControlPanelButton#getDescription returns the description of this object.
          *
          * @return the description (type String) of this object.
@@ -337,7 +360,14 @@ public class ControlPanelObject implements DataObject
          * Material icon for button
          */
         @Expose
+        @Deprecated
         private Material material;
+
+        /**
+         * ItemStack for icon
+         */
+        @Expose
+        private ItemStack icon;
 
         /**
          * Description for the button

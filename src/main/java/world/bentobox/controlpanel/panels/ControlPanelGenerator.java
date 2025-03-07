@@ -8,6 +8,7 @@ package world.bentobox.controlpanel.panels;
 
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -116,7 +117,7 @@ public class ControlPanelGenerator
 
 		return new PanelItemBuilder().
 			name(buttonName).
-			icon(button.getMaterial() == null ? Material.PAPER : button.getMaterial()).
+			icon(button.getIcon() == null ? new ItemStack(button.getMaterial() == null ? Material.PAPER : button.getMaterial()) : button.getIcon()).
 			description(description).
 			clickHandler((panel, user, clickType, slot) -> {
 				final String parsedCommand = button.getCommand().

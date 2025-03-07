@@ -3,8 +3,10 @@ package world.bentobox.controlpanel.commands.user;
 
 import java.util.List;
 
+import world.bentobox.bentobox.api.addons.GameModeAddon;
 import world.bentobox.bentobox.api.commands.CompositeCommand;
 import world.bentobox.bentobox.api.user.User;
+import world.bentobox.bentobox.util.Util;
 import world.bentobox.controlpanel.ControlPanelAddon;
 import world.bentobox.controlpanel.database.objects.ControlPanelObject;
 import world.bentobox.controlpanel.panels.ControlPanelGenerator;
@@ -70,9 +72,11 @@ public class PlayerCommand extends CompositeCommand
 		{
 			if (user.isOp())
 			{
-				user.sendMessage(Constants.ERRORS + "no-valid-panels-op",
-					Constants.VARIABLE_ADMIN,
-					this.getTopLabel());
+				this.getIWM().getAddon(this.getWorld()).
+					flatMap(GameModeAddon::getAdminCommand).
+					ifPresent(command -> user.sendMessage(Constants.ERRORS + "no-valid-panels-op",
+						Constants.VARIABLE_ADMIN,
+						command.getTopLabel()));
 			}
 			else
 			{

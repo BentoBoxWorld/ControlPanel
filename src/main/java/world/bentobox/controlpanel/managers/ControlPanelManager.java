@@ -20,12 +20,14 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import world.bentobox.bentobox.api.addons.GameModeAddon;
 import world.bentobox.bentobox.api.user.User;
 import world.bentobox.bentobox.database.Database;
+import world.bentobox.bentobox.util.ItemParser;
 import world.bentobox.controlpanel.ControlPanelAddon;
 import world.bentobox.controlpanel.database.objects.ControlPanelObject;
 import world.bentobox.controlpanel.database.objects.ControlPanelObject.ControlPanelButton;
@@ -393,6 +395,7 @@ public class ControlPanelManager
                                 }
 
                                 button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
+                                button.setIcon(ItemParser.parse("icon", new ItemStack(Material.PAPER)));
 
                                 buttonList.add(button);
                             }

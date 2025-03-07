@@ -5,7 +5,8 @@
 #    [server] - Command will be run by console, f.e. '[server] op [player]' will result in '/op BONNe1704'
 #    [label]  - [label] in command will be replaced with corresponding GameMode user command,
 #               f.e. '[label] challenges' in BSkyblock will result in 'island challenges'
-# material is used from Matherial.match
+# material is used from Material.match
+# icon is used by parsing BentoBox ItemParser. Replacement for material.
 # permission is a suffix that will be added to the end of "[gamemode].controlpanel.panel.[suffix]".
 #    Adding permission means that user will open control panel defined by permission.
 #    If user will have multiple panel permissions, it will open first encountered with default flag.
@@ -17,67 +18,77 @@
 panel-list:
   default:
     defaultPanel: true
-    panelName: '&1Commands'
+    panelName: '&0&l Control Panel'
     permission: 'default'
     buttons:
       0:
-        name: 'Island'
-        material: GRASS
-        description:
-          - '&1Go to &5 your island'
+        name: '&f&l Island'
+        material: GRASS_BLOCK
+        icon: minecraft:grass_block
+        description: |-
+          &7 Go to your island'
         command: '[label] go'
       8:
-        name: 'Settings'
-        material: LAVA_BUCKET
-        description:
-          - 'Open your island settings'
+        name: '&f&l Settings'
+        material: ANVIL
+        icon: minecraft:anvil
+        description: |-
+          &7 Open your island settings
         command: '[label] settings'
       3:
-        name: 'Team'
-        material: SKULL_ITEM
-        description:
-          - 'List team members'
+        name: '&f&l Team'
+        material: PLAYER_HEAD
+        icon: minecraft:player_head
+        description: |-
+          &7 List team members
         command: '[label] team'
       1:
-        name: 'Set Home'
+        name: '&f&l Set Home'
         material: WHITE_BED
-        description:
-          - 'Set your home here'
+        icon: minecraft:white_bed
+        description: |-
+          &7 Set your home here
         command: '[label] sethome'
       9:
-        name: 'Calculate Level'
+        name: '&f&l Calculate Level'
         material: ACACIA_STAIRS
-        description:
-          - 'Island level'
-          - 'Level: %Level_[gamemode]_island_level%'
+        icon: minecraft:acacia_stairs
+        description: |-
+          &7 Island level
+          &7 Level: &5 %Level_[gamemode]_island_level%
         command: '[label] level'
       10:
-        name: 'Show top 10'
+        name: '&f&l Show top 10'
         material: BOOK
-        description:
-          - 'List the Top 10 islands'
+        icon: minecraft:book
+        description: |-
+          &7 Open top 10 islands
         command: '[label] top'
       12:
-        name: 'Show warps'
+        name: '&f&l Show warps'
         material: OAK_SIGN
-        description:
-          - 'List warps available'
+        icon: minecraft:oak_sign
+        description: |-
+          &7 List warps available
         command: '[label] warps'
       5:
-        name: 'Spawn'
+        name: '&f&l Spawn'
         material: BEDROCK
-        description:
-          - 'Go to world spawn'
+        icon: minecraft:bedrock
+        description: |-
+          &7 Go to world spawn
         command: '[label] spawn'
       14:
-        name: 'Biomes'
+        name: '&f&l Biomes'
         material: OAK_SAPLING
-        description:
-          - 'Biomes'
+        icon: minecraft:oak_sapling
+        description: |-
+          &7 Change biome
         command: '[label] biomes'
       15:
-        name: 'Challenges'
+        name: '&f&l Challenges'
         material: ENCHANTING_TABLE
-        description:
-          - 'Challenges'
+        icon: minecraft:enchanting_table
+        description: |-
+          &7 Open challenges
         command: '[label] challenges'
