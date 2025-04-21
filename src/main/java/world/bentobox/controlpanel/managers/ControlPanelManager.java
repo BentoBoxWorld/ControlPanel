@@ -33,6 +33,7 @@ import world.bentobox.controlpanel.database.objects.ControlPanelObject;
 import world.bentobox.controlpanel.database.objects.ControlPanelObject.ControlPanelButton;
 import world.bentobox.controlpanel.panels.GuiUtils;
 import world.bentobox.controlpanel.utils.Constants;
+import world.bentobox.controlpanel.utils.ItemsAdderParse;
 import world.bentobox.controlpanel.utils.Utils;
 
 
@@ -397,6 +398,8 @@ public class ControlPanelManager
                                 button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
                                 if(buttonSection.getString("icon") != null)
                                     button.setIcon(ItemParser.parse(buttonSection.getString("icon"), new ItemStack(Material.PAPER)));
+                                if(buttonSection.getString("itemsadder") != null)
+                                    button.setIcon(ItemsAdderParse.parse(buttonSection.getString("itemsadder")));
 
                                 buttonList.add(button);
                             }
