@@ -382,7 +382,7 @@ public class ControlPanelManager
                                     // Check if description is not defined as simple string
                                     String input = buttonSection.getString("description", "");
 
-                                    if (input != null && !input.isEmpty())
+                                    if (!input.isEmpty())
                                     {
                                         button.getDescriptionLines().add(
                                             input.replace("[gamemode]", gameMode.toLowerCase()));
