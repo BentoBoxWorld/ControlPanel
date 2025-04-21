@@ -390,7 +390,7 @@ public class ControlPanelManager
                                 }
                                 else
                                 {
-                                    this.addon.logWarning("Description for button " +
+                                    this.addon.logWarning("Description for button "
                                         + button.getSlot() + " could not be read.");
                                 }
 
