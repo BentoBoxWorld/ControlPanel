@@ -396,6 +396,7 @@ public class ControlPanelManager
 
                                 button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
                                 button.setIcon(ItemParser.parse("icon", new ItemStack(Material.PAPER)));
+                                if(buttonSection.getString("icon") != null)
 
                                 buttonList.add(button);
                             }
