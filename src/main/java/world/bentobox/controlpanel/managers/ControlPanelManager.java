@@ -248,7 +248,6 @@ public class ControlPanelManager
      * @param user - user
      * @param gameModeName - gamemode name where ControlPanels must be imported.
      * @param fileName Specifies from which file control panel will be loaded
-     * @return true if successful
      */
     private void importControlPanels(@Nullable User user, String gameModeName, @NotNull String fileName)
     {
