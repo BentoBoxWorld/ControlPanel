@@ -356,51 +356,53 @@ public class ControlPanelManager
                     if (buttonListSection != null)
                     {
                         buttonListSection.getKeys(false).forEach(slotReference -> {
-                            ControlPanelButton button = new ControlPanelButton();
-                            button.setSlot(Integer.parseInt(slotReference));
+                            for (int slotNum : Utils.readIntArray(List.of(slotReference))) {
+                                ControlPanelButton button = new ControlPanelButton();
+                                button.setSlot(slotNum);
 
-                            ConfigurationSection buttonSection =
-                                buttonListSection.getConfigurationSection(slotReference);
+                                ConfigurationSection buttonSection =
+                                        buttonListSection.getConfigurationSection(slotReference);
 
-                            if (buttonSection != null)
-                            {
-                                button.setName(buttonSection.getString("name"));
-                                button.setCommand(buttonSection.getString("command", "[user_command]"));
-
-                                // Create empty list
-                                button.setDescriptionLines(new ArrayList<>());
-
-                                if (buttonSection.isList("description"))
+                                if (buttonSection != null)
                                 {
-                                    // Read description by each line
-                                    buttonSection.getStringList("description").forEach(line ->
-                                        button.getDescriptionLines().add(
-                                            line.replace("[gamemode]", gameMode.toLowerCase())));
-                                }
-                                else if (buttonSection.isString("description"))
-                                {
-                                    // Check if description is not defined as simple string
-                                    String input = buttonSection.getString("description", "");
+                                    button.setName(buttonSection.getString("name"));
+                                    button.setCommand(buttonSection.getString("command", "[user_command]"));
 
-                                    if (!input.isEmpty())
+                                    // Create empty list
+                                    button.setDescriptionLines(new ArrayList<>());
+
+                                    if (buttonSection.isList("description"))
                                     {
-                                        button.getDescriptionLines().add(
-                                            input.replace("[gamemode]", gameMode.toLowerCase()));
+                                        // Read description by each line
+                                        buttonSection.getStringList("description").forEach(line ->
+                                                button.getDescriptionLines().add(
+                                                        line.replace("[gamemode]", gameMode.toLowerCase())));
                                     }
-                                }
-                                else
-                                {
-                                    this.addon.logWarning("Description for button "
-                                        + button.getSlot() + " could not be read.");
-                                }
+                                    else if (buttonSection.isString("description"))
+                                    {
+                                        // Check if description is not defined as simple string
+                                        String input = buttonSection.getString("description", "");
 
-                                button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
-                                if(buttonSection.getString("icon") != null)
-                                    button.setIcon(ItemParser.parse(buttonSection.getString("icon"), new ItemStack(Material.PAPER)));
-                                if(buttonSection.getString("itemsadder") != null)
-                                    button.setIcon(ItemsAdderParse.parse(buttonSection.getString("itemsadder")));
+                                        if (!input.isEmpty())
+                                        {
+                                            button.getDescriptionLines().add(
+                                                    input.replace("[gamemode]", gameMode.toLowerCase()));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        this.addon.logWarning("Description for button "
+                                                + button.getSlot() + " could not be read.");
+                                    }
 
-                                buttonList.add(button);
+                                    button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
+                                    if(buttonSection.getString("icon") != null)
+                                        button.setIcon(ItemParser.parse(buttonSection.getString("icon"), new ItemStack(Material.PAPER)));
+                                    if(buttonSection.getString("itemsadder") != null)
+                                        button.setIcon(ItemsAdderParse.parse(buttonSection.getString("itemsadder")));
+
+                                    buttonList.add(button);
+                                }
                             }
                         });
                     }
