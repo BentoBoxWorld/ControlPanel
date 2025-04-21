@@ -33,6 +33,7 @@ import world.bentobox.controlpanel.database.objects.ControlPanelObject;
 import world.bentobox.controlpanel.database.objects.ControlPanelObject.ControlPanelButton;
 import world.bentobox.controlpanel.panels.GuiUtils;
 import world.bentobox.controlpanel.utils.Constants;
+import world.bentobox.controlpanel.utils.ItemsAdderParse;
 import world.bentobox.controlpanel.utils.Utils;
 
 
@@ -247,7 +248,6 @@ public class ControlPanelManager
      * @param user - user
      * @param gameModeName - gamemode name where ControlPanels must be imported.
      * @param fileName Specifies from which file control panel will be loaded
-     * @return true if successful
      */
     private void importControlPanels(@Nullable User user, String gameModeName, @NotNull String fileName)
     {
@@ -356,48 +356,53 @@ public class ControlPanelManager
                     if (buttonListSection != null)
                     {
                         buttonListSection.getKeys(false).forEach(slotReference -> {
-                            ControlPanelButton button = new ControlPanelButton();
-                            button.setSlot(Integer.parseInt(slotReference));
+                            for (int slotNum : Utils.readIntArray(List.of(slotReference))) {
+                                ControlPanelButton button = new ControlPanelButton();
+                                button.setSlot(slotNum);
 
-                            ConfigurationSection buttonSection =
-                                buttonListSection.getConfigurationSection(slotReference);
+                                ConfigurationSection buttonSection =
+                                        buttonListSection.getConfigurationSection(slotReference);
 
-                            if (buttonSection != null)
-                            {
-                                button.setName(buttonSection.getString("name"));
-                                button.setCommand(buttonSection.getString("command", "[user_command]"));
-
-                                // Create empty list
-                                button.setDescriptionLines(new ArrayList<>());
-
-                                if (buttonSection.isList("description"))
+                                if (buttonSection != null)
                                 {
-                                    // Read description by each line
-                                    buttonSection.getStringList("description").forEach(line ->
-                                        button.getDescriptionLines().add(
-                                            line.replace("[gamemode]", gameMode.toLowerCase())));
-                                }
-                                else if (buttonSection.isString("description"))
-                                {
-                                    // Check if description is not defined as simple string
-                                    String input = buttonSection.getString("description", "");
+                                    button.setName(buttonSection.getString("name"));
+                                    button.setCommand(buttonSection.getString("command", "[user_command]"));
 
-                                    if (input != null && !input.isEmpty())
+                                    // Create empty list
+                                    button.setDescriptionLines(new ArrayList<>());
+
+                                    if (buttonSection.isList("description"))
                                     {
-                                        button.getDescriptionLines().add(
-                                            input.replace("[gamemode]", gameMode.toLowerCase()));
+                                        // Read description by each line
+                                        buttonSection.getStringList("description").forEach(line ->
+                                                button.getDescriptionLines().add(
+                                                        line.replace("[gamemode]", gameMode.toLowerCase())));
                                     }
-                                }
-                                else
-                                {
-                                    this.addon.logWarning("Description for button " +
-                                        + button.getSlot() + " could not be read.");
-                                }
+                                    else if (buttonSection.isString("description"))
+                                    {
+                                        // Check if description is not defined as simple string
+                                        String input = buttonSection.getString("description", "");
 
-                                button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
-                                button.setIcon(ItemParser.parse("icon", new ItemStack(Material.PAPER)));
+                                        if (!input.isEmpty())
+                                        {
+                                            button.getDescriptionLines().add(
+                                                    input.replace("[gamemode]", gameMode.toLowerCase()));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        this.addon.logWarning("Description for button "
+                                                + button.getSlot() + " could not be read.");
+                                    }
 
-                                buttonList.add(button);
+                                    button.setMaterial(Material.matchMaterial(buttonSection.getString("material", "GRASS")));
+                                    if(buttonSection.getString("icon") != null)
+                                        button.setIcon(ItemParser.parse(buttonSection.getString("icon"), new ItemStack(Material.PAPER)));
+                                    if(buttonSection.getString("itemsadder") != null)
+                                        button.setIcon(ItemsAdderParse.parse(buttonSection.getString("itemsadder")));
+
+                                    buttonList.add(button);
+                                }
                             }
                         });
                     }
@@ -501,15 +506,15 @@ public class ControlPanelManager
     /**
      * Control Panel Addon instance.
      */
-    private ControlPanelAddon addon;
+    private final ControlPanelAddon addon;
 
     /**
      * This database allows to access to all stored control panels.
      */
-    private Database<ControlPanelObject> controlPanelDatabase;
+    private final Database<ControlPanelObject> controlPanelDatabase;
 
     /**
      * This map contains all control panel object linked to their reference game mode.
      */
-    private Map<String, ControlPanelObject> controlPanelCache;
+    private final Map<String, ControlPanelObject> controlPanelCache;
 }
