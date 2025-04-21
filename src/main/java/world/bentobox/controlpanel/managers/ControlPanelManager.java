@@ -504,15 +504,15 @@ public class ControlPanelManager
     /**
      * Control Panel Addon instance.
      */
-    private ControlPanelAddon addon;
+    private final ControlPanelAddon addon;
 
     /**
      * This database allows to access to all stored control panels.
      */
-    private Database<ControlPanelObject> controlPanelDatabase;
+    private final Database<ControlPanelObject> controlPanelDatabase;
 
     /**
      * This map contains all control panel object linked to their reference game mode.
      */
-    private Map<String, ControlPanelObject> controlPanelCache;
+    private final Map<String, ControlPanelObject> controlPanelCache;
 }
