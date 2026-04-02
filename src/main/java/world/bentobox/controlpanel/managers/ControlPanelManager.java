@@ -367,6 +367,8 @@ public class ControlPanelManager
                                 {
                                     button.setName(buttonSection.getString("name"));
                                     button.setCommand(buttonSection.getString("command", "[user_command]"));
+                                    button.setRightClickCommand(buttonSection.getString("right_click_command"));
+                                    button.setShiftClickCommand(buttonSection.getString("shift_click_command"));
 
                                     // Create empty list
                                     button.setDescriptionLines(new ArrayList<>());
