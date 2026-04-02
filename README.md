@@ -9,7 +9,7 @@ Give your players a slick, clickable GUI menu to run their most-used island comm
 
 ## ✨ Features
 
-- 🖱️ **Click-to-run** — players open a GUI and click buttons to execute commands instantly
+- 🖱️ **Click-to-run** — left-click, right-click, and shift-click can each trigger a different command
 - 🗂️ **Multiple panels** — define as many panels as you want per gamemode; assign them to players via permissions
 - 🎨 **Rich icons** — use any vanilla material, BentoBox `ItemParser` format, or [ItemsAdder](https://github.com/LoneDev6/ItemsAdder) custom items
 - 📋 **Live placeholders** — button descriptions support PlaceholderAPI, color codes, and `[gamemode]` substitution
@@ -94,7 +94,9 @@ panel-list:
         description: |-
           line one
           line two
-        command: '<command>'
+        command: '<left-click command>'
+        right_click_command: '<right-click command>'
+        shift_click_command: '<shift+left-click command>'
 ```
 
 ### Panel fields
@@ -115,7 +117,19 @@ panel-list:
 | `icon` | BentoBox `ItemParser` string (e.g. `minecraft:diamond`). **Takes priority over `material`.** |
 | `itemsadder` | ItemsAdder custom item ID (e.g. `iasurvival:ruby`). Requires the ItemsAdder plugin. |
 | `description` | Lore lines shown under the button name. Supports `&` color codes, multi-line `\|`, PlaceholderAPI `%placeholders%`, and `[gamemode]`. |
-| `command` | Command run when the button is clicked. Supports placeholders (see below). |
+| `command` | Command run on **left-click** (and any click with no specific override). Supports placeholders. |
+| `right_click_command` | Command run on **right-click** or **shift+right-click**. Falls back to `command` if omitted. |
+| `shift_click_command` | Command run on **shift+left-click**. Falls back to `command` if omitted. |
+
+### Click type summary
+
+| Click | Command used |
+|---|---|
+| Left click | `command` |
+| Right click | `right_click_command` → `command` |
+| Shift + Right click | `right_click_command` → `command` |
+| Shift + Left click | `shift_click_command` → `command` |
+| Any other click | `command` |
 
 ### Command placeholders
 
@@ -160,9 +174,13 @@ panel-list:
         name: '&a&l 🏝 Go to Island'
         icon: minecraft:grass_block
         description: |-
-          &7 Teleport to your island.
+          &7 Left-click: teleport to your island.
+          &7 Right-click: go to your island nether.
+          &7 Shift+click: set your home here.
           &7 Island level: &e%Level_[gamemode]_island_level%
         command: '[label] go'
+        right_click_command: '[label] go nether'
+        shift_click_command: '[label] sethome'
 
       10:
         name: '&e&l 🏠 Set Home'
@@ -369,6 +387,7 @@ panel-list:
 
 ## 💡 Tips
 
+- **Alternative clicks** — add `right_click_command` and/or `shift_click_command` to a button to run different commands on right-click and shift+left-click. Omitting them falls back to `command`.
 - **Slot layout** — a standard chest row is slots 0–8. A 6-row chest (the max) uses slots 0–53.
 - **Slot ranges** — use `"0-8"` (quoted) to place the same button across a range of slots. Great for border decorations.
 - **Blank buttons** — set `command: ''` and `name: ' '` to create a visual spacer or border.
