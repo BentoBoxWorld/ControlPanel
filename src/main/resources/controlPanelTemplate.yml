@@ -1,19 +1,25 @@
-# Control Panel Template file
-# Command Parser Values:
-#    [player] - [player] in command will be replaced with username,
-#               f.e. 'give [player] diamond' will result in '/give BONNe1704 diamond'
-#    [server] - Command will be run by console, f.e. '[server] op [player]' will result in '/op BONNe1704'
-#    [label]  - [label] in command will be replaced with corresponding GameMode user command,
-#               f.e. '[label] challenges' in BSkyblock will result in 'island challenges'
-# material is used from Material.match
-# icon is used by parsing BentoBox ItemParser. Replacement for material.
-# permission is a suffix that will be added to the end of "[gamemode].controlpanel.panel.[suffix]".
-#    Adding permission means that user will open control panel defined by permission.
-#    If user will have multiple panel permissions, it will open first encountered with default flag.
-#    If user will have '*', it will open first defined panel with default flag.
-# description can include color codes using & and new lines using | and placeholders with with % at the
-#    start and the end. [gamemode] in placeholders will be converted to correct string.
-# number before each button means slot location
+# Control Panel template
+#
+# Command placeholders:
+#   [player] -> replaced with the player's username.
+#     Example: 'give [player] diamond' becomes '/give BONNe1704 diamond'
+#   [server] -> run the command as console.
+#     Example: '[server] op [player]' becomes '/op BONNe1704'
+#   [label] -> replaced with the active GameMode user command label.
+#     Example: '[label] challenges' in BSkyBlock becomes 'island challenges'
+#
+# Button fields:
+#   material   - resolved with Material.match.
+#   icon       - resolved with BentoBox ItemParser (used instead of material when valid).
+#   permission - suffix appended to "[gamemode].controlpanel.panel.[suffix]".
+#                A player opens the panel matching their permission.
+#                If multiple panels match, the first panel marked defaultPanel: true is used.
+#                If the player has '*', the first defined default panel is used.
+#   description - supports color codes with '&', multi-line text with '|', and placeholders wrapped
+#                 with '%' (for example %Level_[gamemode]_island_level%).
+#                 '[gamemode]' inside placeholders is converted to the active GameMode string.
+#
+# Each number before a button entry is its slot index.
 
 panel-list:
   default:

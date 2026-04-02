@@ -21,7 +21,7 @@ import world.bentobox.bentobox.api.configuration.StoreAt;
  */
 @StoreAt(filename="config.yml", path="addons/ControlPanel")
 @ConfigComment("ControlPanelAddon Configuration [version]")
-@ConfigComment("This config file is dynamic and saved when the server is shutdown.")
+@ConfigComment("This file is generated automatically and saved when the server shuts down.")
 @ConfigComment("")
 public class Settings implements ConfigObject
 {
@@ -58,8 +58,8 @@ public class Settings implements ConfigObject
 
 
 	@ConfigComment("")
-	@ConfigComment("This list stores GameModes in which Likes addon should not work.")
-	@ConfigComment("To disable addon it is necessary to write its name in new line that starts with -. Example:")
+	@ConfigComment("List GameModes where the ControlPanel addon is disabled.")
+	@ConfigComment("Add one GameMode name per line, prefixed with '-'. Example:")
 	@ConfigComment("disabled-gamemodes:")
 	@ConfigComment(" - BSkyBlock")
 	@ConfigEntry(path = "disabled-gamemodes")
