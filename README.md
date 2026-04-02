@@ -16,7 +16,7 @@ Give your players a slick, clickable GUI menu to run their most-used island comm
 - 📦 **Console commands** — prefix a command with `[server]` to run it as the console
 - 🔢 **Slot ranges** — fill a row of slots with a single button definition using `"0-8"`
 - 🌍 **13 localisations** — cs, de, en-US, es, fr, id, ko, lv, pl, ru, zh-CN, zh-HK, zh-TW
-- 🔌 **Works with** AcidIsland, BSkyBlock, CaveBlock, SkyGrid, AOneBlock
+- 🔌 **Works with** AcidIsland, BSkyBlock, CaveBlock, SkyGrid, AOneBlock, etc.
 
 ---
 
@@ -400,6 +400,6 @@ panel-list:
 
 ## 🌐 Information
 
-More information can be found in the [Wiki Pages](https://github.com/BentoBoxWorld/ControlPanel/wiki).
+More information can be found in the [BentoBox Docs](https://docs.bentobox.world/en/latest/addons/ControlPanel/).
 
 Need help? Join the [BentoBox Discord](https://discord.bentobox.world).
