@@ -91,6 +91,14 @@ class ControlPanelObjectTest {
         button.setCommand("island go");
         assertEquals("island go", button.getCommand());
 
+        assertNull(button.getRightClickCommand());
+        button.setRightClickCommand("island settings");
+        assertEquals("island settings", button.getRightClickCommand());
+
+        assertNull(button.getShiftClickCommand());
+        button.setShiftClickCommand("island team");
+        assertEquals("island team", button.getShiftClickCommand());
+
         assertNull(button.getDescriptionLines());
         List<String> desc = new ArrayList<>();
         desc.add("Line 1");

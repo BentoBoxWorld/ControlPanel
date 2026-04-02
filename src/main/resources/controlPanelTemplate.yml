@@ -5,6 +5,10 @@
 #    [server] - Command will be run by console, f.e. '[server] op [player]' will result in '/op BONNe1704'
 #    [label]  - [label] in command will be replaced with corresponding GameMode user command,
 #               f.e. '[label] challenges' in BSkyblock will result in 'island challenges'
+# Command types:
+#    command             - Executed on left click (default click action)
+#    right_click_command - Executed on right click or shift+right click. Falls back to 'command' if not set.
+#    shift_click_command - Executed on shift+left click. Falls back to 'command' if not set.
 # material is used from Material.match
 # icon is used by parsing BentoBox ItemParser. Replacement for material.
 # permission is a suffix that will be added to the end of "[gamemode].controlpanel.panel.[suffix]".
