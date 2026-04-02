@@ -437,7 +437,7 @@ public class ControlPanelObject implements DataObject
         private String rightClickCommand;
 
         /**
-         * Command that will run on shift click.
+         * Command that will run on shift+left click.
          */
         @Expose
         private String shiftClickCommand;
