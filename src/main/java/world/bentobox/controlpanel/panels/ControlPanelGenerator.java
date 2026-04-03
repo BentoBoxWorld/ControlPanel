@@ -8,6 +8,8 @@ package world.bentobox.controlpanel.panels;
 
 
 import org.bukkit.Material;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -116,10 +118,17 @@ public class ControlPanelGenerator
 
 		return new PanelItemBuilder().
 			name(buttonName).
-			icon(button.getMaterial() == null ? Material.PAPER : button.getMaterial()).
+			icon(button.getIcon() == null ? new ItemStack(button.getMaterial() == null ? Material.PAPER : button.getMaterial()) : button.getIcon()).
 			description(description).
 			clickHandler((panel, user, clickType, slot) -> {
-				final String parsedCommand = button.getCommand().
+				final String rawCommand = this.getCommandForClickType(button, clickType);
+
+				if (rawCommand == null || rawCommand.isEmpty())
+				{
+					return true;
+				}
+
+				final String parsedCommand = rawCommand.
 					replace("[label]", this.topLabel).
 					replace("[server]", "").
 					replace("[player]", user.getName()).
@@ -127,7 +136,7 @@ public class ControlPanelGenerator
 
 				if (!parsedCommand.isEmpty())
 				{
-					if (button.getCommand().startsWith("[server]"))
+					if (rawCommand.startsWith("[server]"))
 					{
 						if (!this.addon.getServer().dispatchCommand(
 							this.addon.getServer().getConsoleSender(),
@@ -150,6 +159,42 @@ public class ControlPanelGenerator
 				return true;
 			}).
 			build();
+	}
+
+
+	/**
+	 * This method returns the command string for a given click type.
+	 * If a specific click type command is not defined, falls back to the default command.
+	 * @param button ControlPanelButton that contains command definitions.
+	 * @param clickType The type of click performed.
+	 * @return The command string to execute, or null if no command is defined.
+	 */
+	private String getCommandForClickType(ControlPanelButton button, ClickType clickType)
+	{
+		switch (clickType)
+		{
+			case RIGHT:
+			case SHIFT_RIGHT:
+				if (button.getRightClickCommand() != null && !button.getRightClickCommand().isEmpty())
+				{
+					return button.getRightClickCommand();
+				}
+
+				break;
+
+			case SHIFT_LEFT:
+				if (button.getShiftClickCommand() != null && !button.getShiftClickCommand().isEmpty())
+				{
+					return button.getShiftClickCommand();
+				}
+
+				break;
+
+			default:
+				break;
+		}
+
+		return button.getCommand();
 	}
 
 

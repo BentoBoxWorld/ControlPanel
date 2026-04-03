@@ -10,6 +10,7 @@ package world.bentobox.controlpanel.database.objects;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import com.google.gson.annotations.Expose;
 
@@ -236,6 +237,28 @@ public class ControlPanelObject implements DataObject
 
 
         /**
+         * Gets icon.
+         *
+         * @return the icon
+         */
+        public ItemStack getIcon()
+        {
+            return icon;
+        }
+
+
+        /**
+         * Sets icon.
+         *
+         * @param icon the icon
+         */
+        public void setIcon(ItemStack icon)
+        {
+            this.icon = icon;
+        }
+
+
+        /**
          * Method ControlPanelButton#getDescription returns the description of this object.
          *
          * @return the description (type String) of this object.
@@ -278,6 +301,48 @@ public class ControlPanelObject implements DataObject
         public void setCommand(String command)
         {
             this.command = command;
+        }
+
+
+        /**
+         * Method ControlPanelButton#getRightClickCommand returns the rightClickCommand of this object.
+         *
+         * @return the rightClickCommand (type String) of this object.
+         */
+        public String getRightClickCommand()
+        {
+            return rightClickCommand;
+        }
+
+
+        /**
+         * Method ControlPanelButton#setRightClickCommand sets new value for the rightClickCommand of this object.
+         * @param rightClickCommand new value for this object.
+         */
+        public void setRightClickCommand(String rightClickCommand)
+        {
+            this.rightClickCommand = rightClickCommand;
+        }
+
+
+        /**
+         * Method ControlPanelButton#getShiftClickCommand returns the shiftClickCommand of this object.
+         *
+         * @return the shiftClickCommand (type String) of this object.
+         */
+        public String getShiftClickCommand()
+        {
+            return shiftClickCommand;
+        }
+
+
+        /**
+         * Method ControlPanelButton#setShiftClickCommand sets new value for the shiftClickCommand of this object.
+         * @param shiftClickCommand new value for this object.
+         */
+        public void setShiftClickCommand(String shiftClickCommand)
+        {
+            this.shiftClickCommand = shiftClickCommand;
         }
 
 
@@ -337,7 +402,14 @@ public class ControlPanelObject implements DataObject
          * Material icon for button
          */
         @Expose
+        @Deprecated
         private Material material;
+
+        /**
+         * ItemStack for icon
+         */
+        @Expose
+        private ItemStack icon;
 
         /**
          * Description for the button
@@ -357,6 +429,18 @@ public class ControlPanelObject implements DataObject
          */
         @Expose
         private String command;
+
+        /**
+         * Command that will run on right click.
+         */
+        @Expose
+        private String rightClickCommand;
+
+        /**
+         * Command that will run on shift+left click.
+         */
+        @Expose
+        private String shiftClickCommand;
 
         /**
          * Name of the Button.
