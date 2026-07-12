@@ -52,6 +52,28 @@ public class Settings implements ConfigObject
 	}
 
 
+	/**
+	 * This method returns the templateFile value.
+	 *
+	 * @return the value of templateFile.
+	 */
+	public String getTemplateFile()
+	{
+		return templateFile;
+	}
+
+
+	/**
+	 * This method sets the templateFile value.
+	 *
+	 * @param templateFile the templateFile new value.
+	 */
+	public void setTemplateFile(String templateFile)
+	{
+		this.templateFile = templateFile;
+	}
+
+
 // ---------------------------------------------------------------------
 // Section: Variables
 // ---------------------------------------------------------------------
@@ -64,4 +86,12 @@ public class Settings implements ConfigObject
 	@ConfigComment(" - BSkyBlock")
 	@ConfigEntry(path = "disabled-gamemodes")
 	private Set<String> disabledGameModes = new HashSet<>();
+
+	@ConfigComment("")
+	@ConfigComment("The template file that control panels are imported from.")
+	@ConfigComment("This file is read when panels are first seeded and re-read on every reload,")
+	@ConfigComment("so editing it and running 'bbox reload' will apply your changes.")
+	@ConfigComment("It must exist in the addon folder (addons/ControlPanel).")
+	@ConfigEntry(path = "template-file")
+	private String templateFile = "controlPanelTemplate.yml";
 }

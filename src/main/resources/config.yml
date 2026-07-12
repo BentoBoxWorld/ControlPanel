@@ -5,3 +5,9 @@
 # disabled-gamemodes:
 #  - BSkyBlock
 disabled-gamemodes: []
+#
+# The template file that control panels are imported from.
+# This file is read when panels are first seeded and re-read on every reload,
+# so editing it and running 'bbox reload' will apply your changes.
+# It must exist in the addon folder (addons/ControlPanel).
+template-file: controlPanelTemplate.yml
