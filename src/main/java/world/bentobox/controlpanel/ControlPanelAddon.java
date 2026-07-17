@@ -138,7 +138,19 @@ public class ControlPanelAddon extends Addon
 		}
 		else
 		{
+			// Reload the database into cache first so wipe/re-import operate on a
+			// consistent view of what is currently stored.
 			this.manager.reload();
+
+			// Re-import each active game mode's panels from controlPanelTemplate.yml so
+			// that admin edits to the template take effect on reload. Without this the
+			// panels stay pinned to whatever was first seeded into the database.
+			this.getPlugin().getAddonsManager().getGameModeAddons().forEach(gameModeAddon -> {
+				if (!this.settings.getDisabledGameModes().contains(gameModeAddon.getDescription().getName()))
+				{
+					this.manager.reimportControlPanels(gameModeAddon);
+				}
+			});
 		}
 	}
 
