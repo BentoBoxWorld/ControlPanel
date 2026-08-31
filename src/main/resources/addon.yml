@@ -12,7 +12,7 @@ repository: 'BentoBoxWorld/ControlPanel'
 # Must use Material.values() with uppercase.
 icon: 'COMMAND_BLOCK'
 # Minimum BentoBox API version
-api-version: 3.10.0
+api-version: 2.7.1
 
 # List of addon authors.
 authors:
