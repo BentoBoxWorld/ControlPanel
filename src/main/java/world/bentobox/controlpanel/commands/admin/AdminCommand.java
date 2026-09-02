@@ -127,9 +127,10 @@ public class AdminCommand extends CompositeCommand
 		@Override
 		public boolean execute(User user, String label, List<String> args)
 		{
-			ControlPanelManager manager = this.<ControlPanelAddon>getAddon().getAddonManager();
+			ControlPanelAddon addon = this.getAddon();
+			ControlPanelManager manager = addon.getAddonManager();
 
-			String fileName = args.size() == 1 ? args.get(0) : "controlPanelTemplate.yml";
+			String fileName = args.size() == 1 ? args.get(0) : addon.getSettings().getTemplateFile();
 
 			if (manager.hasAnyControlPanel(this.getWorld()))
 			{

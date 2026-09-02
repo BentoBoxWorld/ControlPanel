@@ -1,23 +1,21 @@
----
 controlpanel:
   messages:
-    import-count: 導入 [number] 控制面板
-    control-panels-wiped: "&2 所有為 [gamemode] 模式的控制面板已移除"
+    import-count: 已匯入 [number] 個控制面板。
+    control-panels-wiped: '&2已移除 [gamemode] 的所有控制面板。'
   errors:
-    no-load: "&4 無法讀取 [file] 原因: [message]"
-    no-file: "&4 遺失 [file] 檔案"
-    no-valid-panels: "&4 未發現任何可用的控制面板"
-    no-valid-panels-op: "&4 未發現任何可用的控制面板. 你應該試著去導入他 請使用 /[admin] cp import"
-    not-a-gamemode-world: "&4 未發現任何有效的模式"
+    no-load: '&4無法載入檔案 [file]：[message]'
+    no-file: '&4找不到檔案 [file]。'
+    not-a-gamemode-world: '&4找不到有效的遊戲模式。'
+    no-valid-panels: '&4找不到任何有效的控制面板。'
+    no-valid-panels-op: '&4找不到任何有效的控制面板。請嘗試使用 /[admin] cp import 匯入。'
   commands:
     admin:
       help:
-        description: '顯示管理員幫助指令
-
-'
+        description: 顯示管理員說明指令。
       import:
-        parameters: "[file-name] - 要導入的檔案的名子. 檔案為空 所以我們將創建 一般面板."
-        description: 導入控制面板從 [file]
-        confirmation: 請確認您要從 [gamemode] 中刪除現有控制面板，並從 [file] 中導入控制面板
+        parameters: '[file-name] - 要匯入的檔案名稱。留空則匯入預設範本。'
+        description: 從 [file] 匯入控制面板。
+        confirmation: 請確認是否要移除 [gamemode] 目前的控制面板，並從 [file] 匯入新的控制面板。
     help:
-      description: 開啟控制面板
+      parameters: ''
+      description: 開啟控制面板。

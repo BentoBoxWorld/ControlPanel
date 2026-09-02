@@ -35,4 +35,15 @@ class SettingsTest {
         assertTrue(settings.getDisabledGameModes().contains("BSkyBlock"));
         assertTrue(settings.getDisabledGameModes().contains("AcidIsland"));
     }
+
+    @Test
+    void testDefaultTemplateFile() {
+        assertEquals("controlPanelTemplate.yml", settings.getTemplateFile());
+    }
+
+    @Test
+    void testSetTemplateFile() {
+        settings.setTemplateFile("myPanels.yml");
+        assertEquals("myPanels.yml", settings.getTemplateFile());
+    }
 }

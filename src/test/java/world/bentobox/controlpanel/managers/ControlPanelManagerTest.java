@@ -57,6 +57,7 @@ class ControlPanelManagerTest extends CommonTestSetup {
 
         when(addon.getPlugin()).thenReturn(plugin);
         when(addon.getLogger()).thenReturn(Logger.getAnonymousLogger());
+        when(addon.getSettings()).thenReturn(new world.bentobox.controlpanel.config.Settings());
 
         File dataFolder = new File("addons/ControlPanel");
         dataFolder.mkdirs();
@@ -258,6 +259,96 @@ class ControlPanelManagerTest extends CommonTestSetup {
     @Test
     void testReload() {
         manager.reload();
+    }
+
+    @Test
+    void testReimportControlPanelsReadsTemplateFile() throws Exception {
+        // Make import's trailing getAddonManager().save() call resolve to this manager.
+        when(addon.getAddonManager()).thenReturn(manager);
+
+        // Write a template file that reimport should read from disk.
+        writeTemplate("""
+                panel-list:
+                  default:
+                    defaultPanel: true
+                    panelName: 'From Template'
+                    permission: 'default'
+                    buttons:
+                      0:
+                        name: 'Island'
+                        material: GRASS_BLOCK
+                        description: 'Go to your island'
+                        command: '[label] go'
+                """);
+
+        GameModeAddon gameModeAddon = mock(GameModeAddon.class);
+        manager.reimportControlPanels(gameModeAddon);
+
+        // Template panel is now in the cache.
+        assertTrue(manager.hasAnyControlPanel(world));
+        ControlPanelObject panel = manager.getUserControlPanel(User.getInstance(mockPlayer), world, "bskyblock.");
+        assertNotNull(panel);
+        assertEquals("From Template", panel.getPanelName());
+    }
+
+    @Test
+    void testReimportControlPanelsRemovesDeletedPanels() throws Exception {
+        when(addon.getAddonManager()).thenReturn(manager);
+
+        // Seed the cache with an existing panel, as if previously stored in the database.
+        when(handler.loadObjects()).thenReturn(Collections.singletonList(createDefaultPanel()));
+        manager.reload();
+        assertTrue(manager.hasAnyControlPanel(world));
+
+        // A template with no panel-list entries should wipe the stored panel on reimport.
+        writeTemplate("panel-list: {}\n");
+
+        GameModeAddon gameModeAddon = mock(GameModeAddon.class);
+        manager.reimportControlPanels(gameModeAddon);
+
+        assertFalse(manager.hasAnyControlPanel(world));
+    }
+
+    @Test
+    void testReimportControlPanelsUsesConfiguredTemplateFile() throws Exception {
+        // Point the config at a custom template file name.
+        world.bentobox.controlpanel.config.Settings settings =
+                new world.bentobox.controlpanel.config.Settings();
+        settings.setTemplateFile("customPanels.yml");
+        when(addon.getSettings()).thenReturn(settings);
+        when(addon.getAddonManager()).thenReturn(manager);
+
+        // The default template exists but is empty; only the custom file has a panel.
+        writeTemplate("panel-list: {}\n");
+        writeNamedTemplate("customPanels.yml", """
+                panel-list:
+                  default:
+                    defaultPanel: true
+                    panelName: 'From Custom File'
+                    permission: 'default'
+                    buttons:
+                      0:
+                        name: 'Island'
+                        material: GRASS_BLOCK
+                        description: 'Go to your island'
+                        command: '[label] go'
+                """);
+
+        GameModeAddon gameModeAddon = mock(GameModeAddon.class);
+        manager.reimportControlPanels(gameModeAddon);
+
+        ControlPanelObject panel = manager.getUserControlPanel(User.getInstance(mockPlayer), world, "bskyblock.");
+        assertNotNull(panel);
+        assertEquals("From Custom File", panel.getPanelName());
+    }
+
+    private void writeTemplate(String content) throws Exception {
+        writeNamedTemplate("controlPanelTemplate.yml", content);
+    }
+
+    private void writeNamedTemplate(String name, String content) throws Exception {
+        File templateFile = new File(new File("addons/ControlPanel"), name);
+        java.nio.file.Files.writeString(templateFile.toPath(), content);
     }
 
     private ControlPanelObject createDefaultPanel() {

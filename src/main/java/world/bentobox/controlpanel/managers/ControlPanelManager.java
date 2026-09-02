@@ -55,7 +55,8 @@ public class ControlPanelManager
     {
         this.addon = addon;
 
-        // save template file into directory.
+        // Save the default template file into the directory. The configured template file
+        // may point elsewhere, but the packaged default is always named controlPanelTemplate.yml.
         if (!new File(this.addon.getDataFolder(), "controlPanelTemplate.yml").exists())
         {
             this.addon.saveResource("controlPanelTemplate.yml", false);
@@ -125,6 +126,26 @@ public class ControlPanelManager
         this.addon.getLogger().info("Reloading control panels...");
 
         this.controlPanelDatabase.loadObjects().forEach(this::load);
+    }
+
+
+    /**
+     * This method re-imports the control panels for the given game mode from the
+     * template file configured via {@code template-file} in config.yml (defaults to
+     * {@code controlPanelTemplate.yml}), replacing whatever is currently stored in the
+     * database and cache.
+     * <p>
+     * This is what makes edits to the template file take effect on {@code bbox reload}:
+     * without it, {@link #reload()} only re-reads the database and template changes are
+     * silently ignored.
+     *
+     * @param gameModeAddon Game mode whose panels must be re-imported from the template.
+     */
+    public void reimportControlPanels(@NotNull GameModeAddon gameModeAddon)
+    {
+        // Clear existing data so removed/renamed panels do not linger, then re-read the template.
+        this.wipeData(gameModeAddon, null);
+        this.importControlPanels(null, gameModeAddon);
     }
 
 
@@ -226,7 +247,7 @@ public class ControlPanelManager
      */
     public void importControlPanels(@Nullable User user, @NotNull GameModeAddon addon)
     {
-        this.importControlPanels(user, addon, "controlPanelTemplate");
+        this.importControlPanels(user, addon, this.addon.getSettings().getTemplateFile());
     }
 
 
