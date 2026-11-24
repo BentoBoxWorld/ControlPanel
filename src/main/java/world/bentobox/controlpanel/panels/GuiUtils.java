@@ -113,10 +113,7 @@ public class GuiUtils
 		 */
 		private static BorderBlock getPanelBorder(Material material)
 		{
-			ItemStack itemStack = new ItemStack(material);
-			itemStack.getItemMeta().setDisplayName(" ");
-
-			return new BorderBlock(itemStack);
+			return new BorderBlock(new ItemStack(material));
 		}
 	}
 
