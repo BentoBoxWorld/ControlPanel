@@ -27,16 +27,13 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Player.Spigot;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemFactory;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
-import org.eclipse.jdt.annotation.Nullable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockbukkit.mockbukkit.MockBukkit;
@@ -264,11 +261,5 @@ public abstract class CommonTestSetup {
 
     public EntityExplodeEvent getExplodeEvent(Entity entity, Location l, List<Block> list) {
         return new EntityExplodeEvent(entity, l, list, 0, null);
-    }
-
-    public PlayerDeathEvent getPlayerDeathEvent(Player player, List<ItemStack> drops, int droppedExp, int newExp,
-            int newTotalExp, int newLevel, @Nullable String deathMessage) {
-        return new PlayerDeathEvent(player, null, drops, droppedExp, newExp,
-                newTotalExp, newLevel, deathMessage);
     }
 }

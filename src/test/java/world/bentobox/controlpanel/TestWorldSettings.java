@@ -25,11 +25,13 @@ public class TestWorldSettings implements WorldSettings {
         return GameMode.SURVIVAL;
     }
 
+    @SuppressWarnings("removal")
     @Override
     public Map<Flag, Integer> getDefaultIslandFlags() {
         return Collections.emptyMap();
     }
 
+    @SuppressWarnings("removal")
     @Override
     public Map<Flag, Integer> getDefaultIslandSettings() {
         return Collections.emptyMap();
